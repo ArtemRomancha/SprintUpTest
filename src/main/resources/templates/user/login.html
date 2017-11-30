@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <link rel="stylesheet" href="../public/css/signin.css" th:href="@{/css/signin.css}"/>
+    <title>Вход</title>
+</head>
+<body>
+
+<div class="container">
+    <form class="form form-signin form-horizontal" action="#" th:action="@{/login}" method="POST">
+        <h2 class="form-signin-heading" align="center">Вход</h2>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></span>
+            <input type="text" id="email" name="email" th:placeholder="Email" class="form-control"/> <br/>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input id="password" type="password" class="form-control" name="password" placeholder="Пароль"/>
+        </div>
+
+        <br/>
+        <div align="center" th:if="${param.error}">
+            <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+</div>
+</body>
+</html>

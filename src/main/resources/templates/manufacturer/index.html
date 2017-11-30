@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout::site-head">
+    <title>Производители</title>
+</head>
+
+<body>
+<header th:replace="layout::site-navbar(manufacturer)"/>
+<div class="container">
+    <h1>Производители</h1>
+    <br/>
+    <a href="/manufacturer/create" class="btn btn-success" sec:authorize="isAuthenticated()"><span
+            class="glyphicon glyphicon-plus"/> Создать</a>
+    <br/>
+    <br/>
+
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Адрес</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="manufacturer : ${manufacturers}">
+            <td th:text="${manufacturer.id}"/>
+            <td th:text="${manufacturer.name}"/>
+            <td th:text="${manufacturer.description}"/>
+            <td th:text="${manufacturer.address}"/>
+            <td>
+                <a th:href="@{/manufacturer/{id}(id=${manufacturer.id})}" data-toggle="tooltip" data-placement="top"
+                   title="Просмотр">
+                    <span class="glyphicon glyphicon-eye-open"/></a>
+                <a th:href="|/manufacturer/${manufacturer.id}/products|" data-toggle="tooltip" data-placement="top"
+                   title="Список товаров">
+                    <span class="glyphicon glyphicon-list"/></a>
+                <a th:href="@{/manufacturer/{id}/edit(id=${manufacturer.id})}" data-toggle="tooltip"
+                   data-placement="top" title="Редактировать" sec:authorize="hasAuthority('ADMIN')">
+                    <span class="glyphicon glyphicon-pencil"/></a>
+                <a th:href="@{/manufacturer/{id}/delete/(id=${manufacturer.id})}" data-toggle="tooltip"
+                   data-placement="top" title="Удалить" sec:authorize="hasAuthority('ADMIN')">
+                    <span class="glyphicon glyphicon-trash"/></a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<footer th:replace="layout::site-footer"/>
+</body>
+</html>

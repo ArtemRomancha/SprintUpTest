@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title th:text="|Редактировать ${manufacturerForm.name}|">Редактировать</title>
+</head>
+
+<body>
+<header th:replace="layout::site-navbar(manufacturer)"/>
+
+<div class="container">
+    <h1 th:text="|Редактировать ${manufacturerForm.name}|">Редактировать</h1>
+    <br/>
+    <br/>
+
+    <form th:action="@{/manufacturer/{id}/edit (id=${manufacturerForm.id})}" method="post"
+          th:object="${manufacturerForm}">
+        <div th:replace="manufacturer/form::manufacturerForm" th:remove="tag"/>
+
+        <button class="btn btn-success" type="submit">Сохранить</button>
+    </form>
+
+</div>
+<footer th:replace="layout::site-footer"/>
+</body>
+</html>

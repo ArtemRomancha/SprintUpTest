@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::site-head">
+    <title th:text="${manufacturer.name}">Просмотр производителя</title>
+</head>
+
+<body>
+<header th:replace="layout::site-navbar(manufacturer)"/>
+
+<div class="container">
+    <h1 th:text="'Просмотр производителя \'' + ${manufacturer.name} + '\''">Просмотр производителя</h1>
+    <br/>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>ID</th>
+                    <td th:text="${manufacturer.id}"></td>
+                </tr>
+                <tr>
+                    <th>Название</th>
+                    <td th:text="${manufacturer.name}"></td>
+                </tr>
+                <tr>
+                    <th>Описание</th>
+                    <td th:text="${manufacturer.description}"></td>
+                </tr>
+                <tr>
+                    <th>Адрес</th>
+                    <td th:text="${manufacturer.address}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout::site-footer"/>
+</body>
+</html>

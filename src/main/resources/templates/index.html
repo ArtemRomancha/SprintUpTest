@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::site-head">
+    <title>Test Application Site</title>
+</head>
+
+<body>
+<header th:replace="layout::site-navbar(home)"/>
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+        <p>Это реализация тестового задания по Spring MVC.</p>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Производитель</h2>
+            <p>Список производителей и действия над ними. Для анонимных пользователей, доступна возможность просмотра
+            всех производителей, данных отдельного производителя и списка продуктов этого производителя. Зарегистрированные
+                пользователи могут добавлять новых производителей. А администратор может удалять и редактировать существующих.</p>
+            <p><a class="btn btn-default" href="/manufacturers" role="button">Далее &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Продукт</h2>
+            <p>Список продуктов и действия над ними. Для анонимных пользователей, доступна возможность просмотра
+                всех продуктов и подробных данных о них. Зарегистрированные пользователи могут добавлять новые
+                продукты производителям. Администратор может удалять и редактировать существующих.</p>
+            <p><a class="btn btn-default" href="/products" role="button">Далее &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Пользователь</h2>
+            <p>Список пользователей и их ролей.</p>
+            <p><a class="btn btn-default" href="/users" role="button">Далее &raquo;</a></p>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout::site-footer"/>
+</body>
+</html>

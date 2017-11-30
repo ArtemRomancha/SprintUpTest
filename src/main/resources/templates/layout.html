@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="site-head">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../public/css/style.css" th:href="@{/css/style.css}"/>
+    <link rel="icon" href="../public/img/favico.ico" th:href="@{/img/favico.ico}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
+    <script src="../public/js/script.js" th:src="@{/js/script.js}"/>
+    <meta charset="UTF-8"/>
+    <meta th:include="this::head" th:remove="tag"/>
+</head>
+<body>
+<header th:fragment="site-navbar(activeTab)">
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Test Application</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li th:class="${activeTab == 'home'}? 'active' : null"><a href="/">Домой</a></li>
+                        <li th:class="${activeTab == 'product'}? 'active' : null"><a href="/products">Продукты</a></li>
+                        <li th:class="${activeTab == 'manufacturer'}? 'active' : null"><a href="/manufacturers">Производители</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li sec:authorize="!isAuthenticated()"><a href="/registration"><span
+                                class="glyphicon glyphicon-user"></span> Регистрация</a>
+                        </li>
+                        <li sec:authorize="!isAuthenticated()"><a href="/login"><span
+                                class="glyphicon glyphicon-log-in"></span> Вход</a></li>
+
+                        <li class="dropdown" sec:authorize="isAuthenticated()">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <span class="glyphicon glyphicon-user"> </span>
+                                <span sec:authentication="name"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/logout">
+                                        <span class="glyphicon glyphicon-log-out"></span> Выйти</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container notifications" th:with="notifyMessages=${session[T(app.services.notification
+        .NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
+        <div th:each="msg : ${notifyMessages}"
+             th:class="'alert ' + (${#strings.toLowerCase(msg.type) == 'error'} ? 'alert-danger' : 'alert-info')">
+            <div th:text="${msg.text}"></div>
+        </div>
+        <span th:if="${notifyMessages}" th:remove="all" th:text="${session.remove(
+          T(app.services.notification.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY)}"></span>
+    </div>
+</header>
+
+<footer th:fragment="site-footer">
+    <div class="container">
+        <div class="text-center">
+            <br/>
+            <br/>
+            &copy; Spring MVC test site | A. Romancha
+        </div>
+    </div>
+</footer>
+</body>
+</html>

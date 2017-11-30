@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title>Новый продукт</title>
+</head>
+<body>
+<header th:replace="layout::site-navbar(product)"/>
+<div class="container">
+    <h1>Новый продукт</h1>
+    <br/>
+    <br/>
+
+    <form th:action="@{/product/create}" method="post" th:object="${productForm}">
+        <div th:replace="product/form::productForm" th:remove="tag"/>
+
+        <button class="btn btn-success" type="submit">Создать</button>
+    </form>
+</div>
+<footer th:replace="layout::site-footer"/>
+</body>
+</html>

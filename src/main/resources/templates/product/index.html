@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout::site-head">
+    <title>Продукты</title>
+</head>
+<body>
+<header th:replace="layout::site-navbar(product)"/>
+<div class="container">
+    <h1>Продукты</h1>
+    <br/>
+    <a href="/product/create" class="btn btn-success" sec:authorize="isAuthenticated()"><span
+            class="glyphicon glyphicon-plus"/> Создать</a>
+    <br/>
+    <br/>
+
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Цена</th>
+            <th>Производитель</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"/>
+            <td th:text="${product.name}"/>
+            <td th:text="${product.description}"/>
+            <td th:text="${product.price}"/>
+            <td><a th:href="@{/manufacturer/{id} (id=${product.manufacturer.id})}"
+                   th:text="${product.manufacturer.name}"></a></td>
+            <td>
+                <a th:href="@{/product/{id} (id=${product.id})}" data-toggle="tooltip" data-placement="top"
+                   title="Просмотр">
+                    <span class="glyphicon glyphicon-eye-open"/></a>
+                <a th:href="@{/product/{id}/edit (id=${product.id})}" data-toggle="tooltip" data-placement="top"
+                   title="Редактировать" sec:authorize="hasAuthority('ADMIN')">
+                    <span class="glyphicon glyphicon-pencil"/></a>
+                <a th:href="@{/product/{id}/delete (id=${product.id})}" data-toggle="tooltip" data-placement="top"
+                   title="Удалить" sec:authorize="hasAuthority('ADMIN')">
+                    <span class="glyphicon glyphicon-trash"/></a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<footer th:replace="layout::site-footer"/>
+</body>
+</html>

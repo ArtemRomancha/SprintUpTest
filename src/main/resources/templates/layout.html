@@ -31,6 +31,20 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <!--<li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <div th:switch="${#locale}">
+                                    <P th:case="ru">Русский</P>
+                                    <P th:case="en">English</P>
+                                    <p th:case="*">Def</p>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{?lang=ru}">Русский</a></li>
+                                <li><a class="dropdown-item" th:href="@{?lang=en}">English</a></li>
+                            </ul>
+                        </li>
+-->
                         <li sec:authorize="!isAuthenticated()"><a href="/registration"><span
                                 class="glyphicon glyphicon-user"></span> Регистрация</a>
                         </li>

@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout::site-head">
-    <title>Пользователи</title>
+    <title th:text="#{main.users}">Пользователи</title>
 </head>
 <body>
 <header th:replace="layout::site-navbar(home)"/>
 
 <div class="container">
-    <h1>Пользователи</h1>
+    <h1 th:text="#{main.users}">Пользователи</h1>
     <br/>
 
     <table class="table table-bordered table-hover table-striped">
         <tr>
             <th>ID</th>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Email</th>
-            <th>Активность аккаунта</th>
-            <th>Роли</th>
+            <th th:text="#{user.name}">Имя</th>
+            <th th:text="#{user.lastname}">Фамилия</th>
+            <th th:text="#{user.email}">Email</th>
+            <th th:text="#{user.isactive}">Активность аккаунта</th>
+            <th th:text="#{user.roles}">Роли</th>
         </tr>
         <tr th:each="user : ${users}">
             <td th:text="${user.id}"/>
             <td th:text="${user.name}"/>
             <td th:text="${user.lastName}"/>
             <td th:text="${user.email}"/>
-            <td th:text="${user.active} == 1 ? 'Активен' : 'Не активен'"/>
+            <td th:text="${user.active} == 1 ? #{user.active} : #{user.disactive}"/>
             <td>
                 <span th:each="role : ${user.roles}" th:remove="tag">
                     <span th:text="${role.role}"/>

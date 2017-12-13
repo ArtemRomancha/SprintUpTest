@@ -3,12 +3,15 @@
 <head th:fragment="site-head">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../public/css/style.css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="../public/css/flag-icon.min.css" th:href="@{/css/flag-icon.min.css}"/>
+    <link rel="stylesheet" href="../public/css/modern-business.css" th:href="@{/css/modern-business.css}"/>
     <link rel="icon" href="../public/img/favico.ico" th:href="@{/img/favico.ico}"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
     <script src="../public/js/script.js" th:src="@{/js/script.js}"/>
     <meta charset="UTF-8"/>
     <meta th:include="this::head" th:remove="tag"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 </head>
 <body>
 <header th:fragment="site-navbar(activeTab)">
@@ -17,39 +20,32 @@
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">Test Application</a>
+                    <a class="navbar-brand" href="/" th:text="#{main.title}">Test Application</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li th:class="${activeTab == 'home'}? 'active' : null"><a href="/">Домой</a></li>
-                        <li th:class="${activeTab == 'product'}? 'active' : null"><a href="/products">Продукты</a></li>
-                        <li th:class="${activeTab == 'manufacturer'}? 'active' : null"><a href="/manufacturers">Производители</a>
+                        <li th:class="${activeTab == 'home'}? 'active' : null">
+                            <a href="/" th:text="#{main.home}">Домой</a>
+                        </li>
+                        <li th:class="${activeTab == 'product'}? 'active' : null">
+                            <a href="/products" th:text="#{main.products}">Продукты</a>
+                        </li>
+                        <li th:class="${activeTab == 'manufacturer'}? 'active' : null">
+                            <a href="/manufacturers" th:text="#{main.manufacturer}">Производители</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <!--<li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                <div th:switch="${#locale}">
-                                    <P th:case="ru">Русский</P>
-                                    <P th:case="en">English</P>
-                                    <p th:case="*">Def</p>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{?lang=ru}">Русский</a></li>
-                                <li><a class="dropdown-item" th:href="@{?lang=en}">English</a></li>
-                            </ul>
-                        </li>
--->
                         <li sec:authorize="!isAuthenticated()"><a href="/registration"><span
-                                class="glyphicon glyphicon-user"></span> Регистрация</a>
+                                class="glyphicon glyphicon-user"></span> <span th:text="#{main.registration}">Регистрация</span></a>
                         </li>
                         <li sec:authorize="!isAuthenticated()"><a href="/login"><span
-                                class="glyphicon glyphicon-log-in"></span> Вход</a></li>
+                                class="glyphicon glyphicon-log-in"></span> <span th:text="#{main.login}">Вход</span></a>
+                        </li>
 
                         <li class="dropdown" sec:authorize="isAuthenticated()">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -59,7 +55,25 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="/logout">
-                                        <span class="glyphicon glyphicon-log-out"></span> Выйти</a>
+                                        <span class="glyphicon glyphicon-log-out"></span> <span
+                                            th:text="#{main.logout}">Выйти</span></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <div th:switch="__${#locale}__" th:remove="tag">
+                                    <span th:case="ru"><span class="flag-icon flag-icon-ru"></span>
+                                        <!-- Русский--></span>
+                                    <span th:case="en"><span class="flag-icon flag-icon-gb"></span>
+                                        <!-- English--></span>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a th:href="@{?lang=ru}"><span class="flag-icon flag-icon-ru"></span> Русский</a>
+                                </li>
+                                <li><a th:href="@{?lang=en}"><span class="flag-icon flag-icon-gb"></span> English</a>
                                 </li>
                             </ul>
                         </li>

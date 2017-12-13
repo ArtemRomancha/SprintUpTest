@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout::site-head">
-    <title>Регистрация</title>
+    <title th:text="#{main.registration}">Регистрация</title>
 </head>
 <body>
+<header th:replace="layout::site-navbar(home)"/>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-3"></div>
@@ -11,20 +13,20 @@
             <div class="panel-heading">
                 <div class="panel-title text-center">
                     <div class="col-sm-10">
-                        <h1 class="title">Регистрация</h1>
+                        <h1 class="title" th:text="#{main.registration}">Регистрация</h1>
                         <hr/>
                     </div>
                 </div>
             </div>
             <div class="main-login main-center">
-                <form class="form form-horizontal" action="#" th:action="@{/registration}"
-                      th:object="${user}" method="post">
+                <form class="form form-horizontal" action="#" th:action="@{/registration}" th:object="${user}"
+                      method="post">
                     <div class="form-group">
                         <div class="col-sm-10">
                             <div class="input-group" th:classappend="${#fields.hasErrors('name')} ? has-error : ''">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"
                                                                    aria-hidden="true"></i></span>
-                                <input type="text" th:field="*{name}" placeholder="Имя"
+                                <input type="text" th:field="*{name}" th:placeholder="#{user.name}"
                                        class="form-control"/>
                             </div>
                             <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
@@ -38,7 +40,7 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"
                                                                    aria-hidden="true"></i></span>
                                 <input type="text" th:field="*{lastName}"
-                                       placeholder="Фамилия" class="form-control"/>
+                                       th:placeholder="#{user.lastname}" class="form-control"/>
                             </div>
                             <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
                                  class="invalid-feedback"></div>
@@ -50,7 +52,7 @@
                             <div class="input-group" th:classappend="${#fields.hasErrors('email')} ? has-error : ''">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"
                                                                    aria-hidden="true"></i></span>
-                                <input type="text" th:field="*{email}" placeholder="Email"
+                                <input type="text" th:field="*{email}" th:placeholder="#{user.email}"
                                        class="form-control"/>
                             </div>
                             <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
@@ -64,7 +66,7 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"
                                                                    aria-hidden="true"></i></span>
                                 <input type="password" th:field="*{password}"
-                                       placeholder="Пароль" class="form-control"/>
+                                       th:placeholder="#{user.password}" class="form-control"/>
                             </div>
                             <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                                  class="invalid-feedback"></div>
@@ -73,7 +75,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                            <button type="submit" class="btn btn-primary btn-block" th:text="#{main.registration}">Зарегистрироваться</button>
                         </div>
                     </div>
                 </form>

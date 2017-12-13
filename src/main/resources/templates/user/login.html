@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout::site-head">
-    <link rel="stylesheet" href="../public/css/signin.css" th:href="@{/css/signin.css}"/>
-    <title>Вход</title>
+    <title th:text="#{main.login}">Войти</title>
 </head>
 <body>
 
+<header th:replace="layout::site-navbar(home)"/>
+
 <div class="container">
     <form class="form form-signin form-horizontal" action="#" th:action="@{/login}" method="POST">
-        <h2 class="form-signin-heading" align="center">Вход</h2>
+        <h2 class="form-signin-heading" align="center" th:text="#{main.login}">Войти</h2>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></span>
-            <input type="text" id="email" name="email" th:placeholder="Email" class="form-control"/> <br/>
+            <input type="text" id="email" name="email" class="form-control" th:placeholder="#{user.login}"/> <br/>
         </div>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input id="password" type="password" class="form-control" name="password" placeholder="Пароль"/>
+            <input id="password" type="password" class="form-control" name="password" th:placeholder="#{user.password}"/>
         </div>
 
         <br/>
@@ -23,7 +24,7 @@
             <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
         </div>
 
-        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-primary btn-block" type="submit" th:text="#{main.login}">Sign in</button>
     </form>
 </div>
 </body>

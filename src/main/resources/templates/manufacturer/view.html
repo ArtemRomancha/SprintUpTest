@@ -9,7 +9,7 @@
 <header th:replace="layout::site-navbar(manufacturer)"/>
 
 <div class="container">
-    <h1 th:text="'Просмотр производителя \'' + ${manufacturer.name} + '\''">Просмотр производителя</h1>
+    <h1 th:text="#{manufacturer.view} + ' \'' + ${manufacturer.name} + '\''">Просмотр производителя</h1>
     <br/>
 
     <div class="row">
@@ -20,15 +20,15 @@
                     <td th:text="${manufacturer.id}"></td>
                 </tr>
                 <tr>
-                    <th>Название</th>
+                    <th th:text="#{manufacturer.name}">Название</th>
                     <td th:text="${manufacturer.name}"></td>
                 </tr>
                 <tr>
-                    <th>Описание</th>
+                    <th th:text="#{manufacturer.description}">Описание</th>
                     <td th:text="${manufacturer.description}"></td>
                 </tr>
                 <tr>
-                    <th>Адрес</th>
+                    <th th:text="#{manufacturer.address}">Адрес</th>
                     <td th:text="${manufacturer.address}"></td>
                 </tr>
             </table>

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout::site-head">
-    <title>Продукты</title>
+    <title th:text="#{main.products}">Продукты</title>
 </head>
 <body>
 <header th:replace="layout::site-navbar(product)"/>
 <div class="container">
-    <h1>Продукты</h1>
+    <h1 th:text="#{main.products}">Продукты</h1>
     <br/>
     <a href="/product/create" class="btn btn-success" sec:authorize="isAuthenticated()"><span
-            class="glyphicon glyphicon-plus"/> Создать</a>
+            class="glyphicon glyphicon-plus"/> <span th:text="#{service.create}" th:remove="tag">Создать</span></a>
     <br/>
     <br/>
 
     <table class="table table-bordered table-hover table-striped">
         <tr>
             <th>ID</th>
-            <th>Название</th>
-            <th>Описание</th>
-            <th>Цена</th>
-            <th>Производитель</th>
-            <th>Действия</th>
+            <th th:text="#{product.name}">Название</th>
+            <th th:text="#{product.description}">Описание</th>
+            <th th:text="#{product.price}">Цена</th>
+            <th th:text="#{product.manufacturer}">Производитель</th>
+            <th th:text="#{service.actions}">Действия</th>
         </tr>
         <tr th:each="product : ${products}">
             <td th:text="${product.id}"/>

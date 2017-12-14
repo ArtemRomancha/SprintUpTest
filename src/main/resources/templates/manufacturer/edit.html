@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout::site-head">
-    <title th:text="|Редактировать ${manufacturerForm.name}|">Редактировать</title>
+    <title th:text="|#{service.edit} ${manufacturerForm.name}|">Редактировать</title>
 </head>
 
 <body>
 <header th:replace="layout::site-navbar(manufacturer)"/>
 
 <div class="container">
-    <h1 th:text="|Редактировать ${manufacturerForm.name}|">Редактировать</h1>
+    <h1 th:text="|#{service.edit} ${manufacturerForm.name}|">Редактировать</h1>
     <br/>
     <br/>
 
@@ -16,7 +16,7 @@
           th:object="${manufacturerForm}">
         <div th:replace="manufacturer/form::manufacturerForm" th:remove="tag"/>
 
-        <button class="btn btn-success" type="submit">Сохранить</button>
+        <button class="btn btn-success" type="submit" th:text="#{service.save}">Сохранить</button>
     </form>
 
 </div>

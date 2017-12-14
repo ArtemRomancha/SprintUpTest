@@ -6,7 +6,7 @@
 <body>
 <header th:replace="layout::site-navbar(product)"/>
 <div class="container">
-    <h1 th:text="'Просмотр продукта \'' + ${product.name} + '\''">Просмотр продукта</h1>
+    <h1 th:text="#{product.view} + ' \'' + ${product.name} + '\''">Просмотр продукта</h1>
     <br/>
 
     <div class="row">
@@ -17,19 +17,19 @@
                     <td th:text="${product.id}"></td>
                 </tr>
                 <tr>
-                    <th>Название</th>
+                    <th th:text="#{product.name}">Название</th>
                     <td th:text="${product.name}"></td>
                 </tr>
                 <tr>
-                    <th>Описание</th>
+                    <th th:text="#{product.description}">Описание</th>
                     <td th:text="${product.description}"></td>
                 </tr>
                 <tr>
-                    <th>Цена</th>
+                    <th th:text="#{product.price}">Цена</th>
                     <td th:text="${product.price}"></td>
                 </tr>
                 <tr>
-                    <th>Производитель</th>
+                    <th th:text="#{product.manufacturer}">Производитель</th>
                     <td th:text="${product.manufacturer.name}"></td>
                 </tr>
             </table>

@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout::site-head">
-    <title th:text="'Продукты \'' + ${manufacturer.name} + '\''">>Продукты</title>
+    <title th:text="#{main.products} + ' \'' + ${manufacturer.name} + '\''">>Продукты</title>
 </head>
 
 <body>
 <header th:replace="layout::site-navbar(manufacturer)"/>
 
 <div class="container">
-    <h1 th:text="${manufacturer.name}">Производитель</h1>
+    <h1 th:text="#{main.products} + ' \'' + ${manufacturer.name} + '\''">Производитель</h1>
     <br/>
-    <a href="/manufacturer/create" class="btn btn-success" sec:authorize="isAuthenticated()"><span class="glyphicon glyphicon-plus"/> Создать</a>
+    <a href="/manufacturer/create" class="btn btn-success"
+       sec:authorize="isAuthenticated()">
+        <span class="glyphicon glyphicon-plus"/>
+        <span th:text="#{service.create}" th:remove="tag">Создать</span>
+    </a>
     <br/>
     <br/>
 
     <table class="table table-bordered table-hover table-striped">
         <tr>
             <th>ID</th>
-            <th>Название</th>
-            <th>Описание</th>
-            <th>Цена</th>
-            <th>Действия</th>
+            <th th:text="#{product.name}">Название</th>
+            <th th:text="#{product.description}">Описание</th>
+            <th th:text="#{product.price}">Цена</th>
+            <th th:text="#{service.actions}">Действия</th>
         </tr>
         <tr th:each="product : ${products}">
             <td th:text="${product.id}"/>
@@ -29,13 +33,13 @@
             <td th:text="${product.price}"/>
             <td>
                 <a th:href="@{/product/{id}(id=${product.id})}" data-toggle="tooltip" data-placement="top"
-                   title="Просмотр">
+                   th:title="#{service.view}">
                     <span class="glyphicon glyphicon-eye-open"/></a>
-                <a th:href="@{/product/edit/{id}(id=${product.id})}" data-toggle="tooltip"
-                   data-placement="top" title="Редактировать" sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/product/{id}/edit (id=${product.id})}" data-toggle="tooltip"
+                   data-placement="top" th:title="#{service.edit}" sec:authorize="hasAuthority('ADMIN')">
                     <span class="glyphicon glyphicon-pencil"/></a>
                 <a th:href="@{/product/delete/{id}(id=${product.id})}" data-toggle="tooltip"
-                   data-placement="top" title="Удалить" sec:authorize="hasAuthority('ADMIN')">
+                   data-placement="top" th:title="#{service.delete}" sec:authorize="hasAuthority('ADMIN')">
                     <span class="glyphicon glyphicon-trash"/></a>
             </td>
         </tr>

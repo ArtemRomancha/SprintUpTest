@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout::site-head">
-    <title>Новый производитель</title>
+    <title th:text="#{manufacturer.new}">Новый производитель</title>
 </head>
 <body>
 <header th:replace="layout::site-navbar(manufacturer)"/>
 
 <div class="container">
-    <h1>Новый производитель</h1>
+    <h1 th:text="#{manufacturer.new}">Новый производитель</h1>
     <br/>
     <br/>
 
     <form th:action="@{/manufacturer/create}" method="post" th:object="${manufacturerForm}">
         <div th:replace="manufacturer/form::manufacturerForm" th:remove="tag"/>
 
-        <button class="btn btn-success" type="submit">Создать</button>
+        <button class="btn btn-success" type="submit" th:text="#{service.create}">Создать</button>
     </form>
 
 </div>

@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/**").permitAll()
+                /*.antMatchers("/").permitAll()
                 .antMatchers("/manufacturers").permitAll()
                 .antMatchers("/manufacturer/{id:[\\d+]}").permitAll()
                 .antMatchers("/manufacturer/{id:[\\d+]}/products").permitAll()
@@ -58,9 +59,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/product/{id:[\\d+]}/*").hasAuthority("ADMIN")
 
                 .antMatchers("/users").permitAll()
+                .antMatchers("/api/**").permitAll()
+                .antMatchers("/rest/**").permitAll()
+                .antMatchers("/rest").permitAll()
 
                 .antMatchers("/login").permitAll()
-                .antMatchers("/registration").permitAll()
+                .antMatchers("/registration").permitAll()*/
 
                 .anyRequest().authenticated()
                 .and()

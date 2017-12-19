@@ -2,7 +2,6 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
-const client = require('./client');
 
 class App extends React.Component {
 
@@ -11,7 +10,7 @@ class App extends React.Component {
         this.state = {users: []};
     }
 
-    loadUsersFromServer() {
+    loadUsersFromServer(pageSize) {
         var self = this;
         $.ajax({
             url: "http://localhost:8080/api/users"
@@ -20,50 +19,76 @@ class App extends React.Component {
         });
     }
 
-    getInitialState() {
-        return {users: []};
-    }
-
     componentDidMount() {
-        this.loadUsersFromServer();
+        this.loadUsersFromServer(this.state.pageSize);
     }
 
     render() {
-        return (<UserList users={this.state.users}/>);
+        return (
+            <div className="container">
+                <h1>Users</h1>
+                <UserTable users={this.state.users}/>
+            </div>);
     }
 }
 
-class UserList extends React.Component {
+class UserTable extends React.Component {
     render() {
         var users = this.props.users.map(user =>
             <User key={user._links.self.href} user={user}/>
         );
         return (
-            <div className="container">
-                <table className="table table-striped">
-                    <tbody>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Description</th>
-                    </tr>
-                    {users}
-                    </tbody>
-                </table>
-            </div>
+            <table className="table table-striped">
+                <tbody>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Description</th>
+                    <th>Delete</th>
+                </tr>
+                {users}
+                </tbody>
+            </table>
         )
     }
 }
 
 class User extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {display: true};
+        this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    handleDelete() {
+        var self = this; //?????????????????????????????????????        WHAT
+        $.ajax({
+            url: this.props.user._links.self.href,
+            type: "GET",
+            success(result) {
+                self.setState({display: false});
+                toastr.success("Success");
+            },
+            error(xhr, ajaxOptions, thrownError) {
+                toastr.error(xhr.responseJSON.message);
+            }
+        });
+    };
+
     render() {
-        return (
-            <tr>
-                <td>{this.props.user.name}</td>
-                <td>{this.props.user.lastName}</td>
-                <td>{this.props.user.email}</td>
-            </tr>
-        )
+        if (this.state.display == false)
+            return null;
+        else
+            return (
+                <tr>
+                    <td>{this.props.user.name}</td>
+                    <td>{this.props.user.lastName}</td>
+                    <td>{this.props.user.email}</td>
+                    <td>
+                        <button className="btn btn-danger" onClick={this.handleDelete}>Delete</button>
+                    </td>
+                </tr>
+            )
     }
 }
 
